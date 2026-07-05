@@ -317,6 +317,72 @@
       animation: floatEmoji 2s ease-in-out infinite;
     }
 
+    /* ── Music player ── */
+    #musicPlayer {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 50px;
+      padding: 10px 18px;
+      box-shadow: 0 6px 24px rgba(233, 30, 140, 0.2);
+      border: 1.5px solid #f8bbd0;
+      transition: opacity 0.3s;
+    }
+    #musicPlayer:hover { opacity: 1 !important; }
+    #musicToggle {
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      color: #e91e8c;
+      padding: 0;
+      line-height: 1;
+      transition: transform 0.2s;
+    }
+    #musicToggle:hover { transform: scale(1.2); }
+    #volumeSlider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 80px;
+      height: 4px;
+      border-radius: 4px;
+      background: linear-gradient(to right, #e91e8c 0%, #f8bbd0 100%);
+      outline: none;
+      cursor: pointer;
+    }
+    #volumeSlider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #e91e8c;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(233,30,140,0.4);
+    }
+    #volumeSlider::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #e91e8c;
+      cursor: pointer;
+      border: none;
+    }
+    #musicIcon {
+      font-size: 1rem;
+      animation: musicPulse 1.5s ease-in-out infinite;
+    }
+    @keyframes musicPulse {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.25); }
+    }
+
     /* ── Mobile ── */
     @media (max-width: 500px) {
       .card { padding: 36px 20px; }
@@ -327,6 +393,18 @@
   </style>
 </head>
 <body>
+
+<!-- ══ Music player ══ -->
+<div id="musicPlayer">
+  <button id="musicToggle" onclick="toggleMusic()" title="Играть / пауза">▶</button>
+  <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.15"
+    oninput="setVolume(this.value)" title="Громкость" />
+  <span id="musicIcon">🎵</span>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="wicked game - chris isaak ( sped up + reverb ).mp3" type="audio/mpeg" />
+</audio>
 
 <!-- Floating hearts background -->
 <div class="hearts-bg" id="heartsBg"></div>
@@ -602,6 +680,42 @@
 
     launchConfetti();
     goTo(5);
+  }
+
+  /* ══ Music player ══ */
+  const audio = document.getElementById('bgMusic');
+  const toggleBtn = document.getElementById('musicToggle');
+  audio.volume = 0.15;
+
+  // Autoplay on first user interaction
+  let started = false;
+  function startMusic() {
+    if (!started) {
+      audio.play().then(() => {
+        started = true;
+        toggleBtn.textContent = '⏸';
+      }).catch(() => {});
+    }
+  }
+  document.addEventListener('click', startMusic, { once: true });
+
+  function toggleMusic() {
+    if (audio.paused) {
+      audio.play();
+      toggleBtn.textContent = '⏸';
+      started = true;
+    } else {
+      audio.pause();
+      toggleBtn.textContent = '▶';
+    }
+  }
+
+  function setVolume(val) {
+    audio.volume = parseFloat(val);
+    // Update slider gradient
+    const pct = val * 100;
+    document.getElementById('volumeSlider').style.background =
+      `linear-gradient(to right, #e91e8c ${pct}%, #f8bbd0 ${pct}%)`;
   }
 
   /* ══ Set min date = today ══ */
