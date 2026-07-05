@@ -383,6 +383,26 @@
       50%       { transform: scale(1.25); }
     }
 
+    /* ── Back button ── */
+    .btn-back {
+      background: none;
+      border: none;
+      color: #c2185b;
+      font-size: 0.92rem;
+      font-family: 'Lato', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 8px 4px;
+      margin-bottom: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      opacity: 0.75;
+      transition: opacity 0.2s, transform 0.2s;
+      letter-spacing: 0.2px;
+    }
+    .btn-back:hover { opacity: 1; transform: translateX(-3px); }
+
     /* ── Mobile ── */
     @media (max-width: 500px) {
       .card { padding: 36px 20px; }
@@ -418,7 +438,7 @@
     <p>Я делаю шаг навстречу.<br>Не прошу второго шанса,<br>ничего не жду взамен.</p>
     <p>Просто хочу, чтобы ты сделала<br>самый маленький шаг — в мою сторону 🥺</p>
     <div style="margin-top: 34px;">
-      <button class="btn btn-primary" onclick="goTo(2)">
+      <button class="btn btn-primary" onclick="goTo(2); startMusic()">
         💌 Да, мне интересно
       </button>
       <br>
@@ -438,6 +458,7 @@
       <div class="dot" id="d3"></div>
       <div class="dot" id="d4"></div>
     </div>
+    <button class="btn-back" onclick="goTo(1)">← Назад</button>
     <span class="emoji-big">📍</span>
     <h2>Куда пойдём?</h2>
     <p>Выбери, где тебе будет приятнее всего</p>
@@ -471,6 +492,7 @@
       <div class="dot active"></div>
       <div class="dot"></div>
     </div>
+    <button class="btn-back" onclick="goTo(2)">← Назад</button>
     <span class="emoji-big">📅</span>
     <h2>Когда тебе удобно?</h2>
     <p>Выбери день — и я буду ждать с нетерпением 🌷</p>
@@ -494,6 +516,7 @@
       <div class="dot done"></div>
       <div class="dot active"></div>
     </div>
+    <button class="btn-back" onclick="goTo(3)">← Назад</button>
     <span class="emoji-big">🥰</span>
     <h2>Отлично!</h2>
     <p>Посмотри, что получилось:</p>
@@ -686,9 +709,8 @@
   const audio = document.getElementById('bgMusic');
   const toggleBtn = document.getElementById('musicToggle');
   audio.volume = 0.15;
-
-  // Autoplay on first user interaction
   let started = false;
+
   function startMusic() {
     if (!started) {
       audio.play().then(() => {
@@ -697,7 +719,6 @@
       }).catch(() => {});
     }
   }
-  document.addEventListener('click', startMusic, { once: true });
 
   function toggleMusic() {
     if (audio.paused) {
