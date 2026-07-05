@@ -18,10 +18,30 @@
 
     body {
       font-family: 'Lato', sans-serif;
-      background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #e1bee7 100%);
+      background: linear-gradient(160deg, #1a0533 0%, #4a0e6e 30%, #c2185b 65%, #ff8a65 100%);
       min-height: 100vh;
       overflow-x: hidden;
       color: var(--text);
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ctext y='20' font-size='20'%3E🩷%3C/text%3E%3C/svg%3E") 12 12, auto;
+    }
+
+    /* ── Stars background ── */
+    .stars-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      animation: twinkle ease-in-out infinite;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50%       { opacity: 1;   transform: scale(1.4); }
     }
 
     /* ── Floating hearts ── */
@@ -62,16 +82,16 @@
 
     /* ── Card ── */
     .card {
-      background: rgba(255, 255, 255, 0.75);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: rgba(255, 255, 255, 0.10);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-radius: 28px;
       padding: 52px 46px;
       max-width: 560px;
       width: 100%;
       box-shadow:
-        0 24px 64px rgba(233, 30, 140, 0.18),
-        0 4px 20px rgba(0, 0, 0, 0.08);
+        0 24px 64px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255,255,255,0.15);
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -79,12 +99,10 @@
     .card::before {
       content: '';
       position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at 30% 20%, rgba(244,143,177,0.12) 0%, transparent 60%),
-                  radial-gradient(circle at 70% 80%, rgba(206,147,216,0.1) 0%, transparent 60%);
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle at 30% 20%, rgba(255,100,180,0.08) 0%, transparent 60%),
+                  radial-gradient(circle at 70% 80%, rgba(180,100,255,0.07) 0%, transparent 60%);
       pointer-events: none;
     }
 
@@ -92,19 +110,21 @@
     h1 {
       font-family: 'Playfair Display', serif;
       font-size: 2.6rem;
-      color: #ad1457;
+      color: #ffb3d1;
       margin-bottom: 18px;
       line-height: 1.25;
+      text-shadow: 0 2px 20px rgba(255,100,180,0.4);
     }
     h2 {
       font-family: 'Playfair Display', serif;
       font-size: 1.9rem;
-      color: #ad1457;
+      color: #ffb3d1;
       margin-bottom: 14px;
+      text-shadow: 0 2px 16px rgba(255,100,180,0.3);
     }
     p {
       font-size: 1.05rem;
-      color: #6d4c41;
+      color: rgba(255,220,235,0.9);
       line-height: 1.75;
       margin-bottom: 10px;
     }
@@ -149,15 +169,15 @@
 
     .btn-outline {
       background: transparent;
-      border: 2.5px solid #e91e8c;
-      color: #e91e8c;
+      border: 2.5px solid rgba(255,180,210,0.7);
+      color: #ffb3d1;
     }
     .btn-outline:hover {
-      background: #fce4ec;
+      background: rgba(255,180,210,0.12);
       transform: translateY(-3px);
     }
     .btn-outline:disabled {
-      opacity: 0.5;
+      opacity: 0.4;
       cursor: not-allowed;
       transform: none;
     }
@@ -170,14 +190,14 @@
       margin: 24px 0;
     }
     .option-card {
-      background: rgba(255, 255, 255, 0.88);
-      border: 2.5px solid #f8bbd0;
+      background: rgba(255, 255, 255, 0.08);
+      border: 2px solid rgba(255,180,210,0.3);
       border-radius: 18px;
       padding: 22px 12px;
       cursor: pointer;
       transition: all 0.25s ease;
       font-size: 0.95rem;
-      color: #6d4c41;
+      color: rgba(255,220,235,0.9);
       font-weight: 600;
       position: relative;
     }
@@ -187,16 +207,17 @@
       margin-bottom: 10px;
     }
     .option-card:hover {
-      border-color: #e91e8c;
+      border-color: rgba(255,100,180,0.8);
       transform: translateY(-5px);
-      box-shadow: 0 8px 26px rgba(233, 30, 140, 0.22);
+      box-shadow: 0 8px 26px rgba(233, 30, 140, 0.3);
+      background: rgba(255,100,180,0.12);
     }
     .option-card.selected {
-      border-color: #e91e8c;
-      background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+      border-color: #ff69b4;
+      background: rgba(255,100,180,0.2);
       transform: translateY(-5px) scale(1.05);
-      box-shadow: 0 10px 28px rgba(233, 30, 140, 0.32);
-      color: #ad1457;
+      box-shadow: 0 10px 28px rgba(233, 30, 140, 0.4);
+      color: #ffb3d1;
     }
     .option-card.selected::after {
       content: '✓';
@@ -204,7 +225,7 @@
       top: 8px;
       right: 12px;
       font-size: 1.1rem;
-      color: #e91e8c;
+      color: #ff69b4;
       font-weight: 900;
     }
 
@@ -217,11 +238,11 @@
       width: 100%;
       padding: 16px 22px;
       border-radius: 50px;
-      border: 2.5px solid #f48fb1;
+      border: 2px solid rgba(255,180,210,0.5);
       font-size: 1.05rem;
       font-family: 'Lato', sans-serif;
-      color: #ad1457;
-      background: rgba(255, 255, 255, 0.92);
+      color: #ffb3d1;
+      background: rgba(255,255,255,0.08);
       outline: none;
       text-align: center;
       transition: border 0.2s, box-shadow 0.2s;
@@ -230,22 +251,22 @@
       -webkit-appearance: none;
     }
     .date-input:focus {
-      border-color: #e91e8c;
-      box-shadow: 0 0 0 4px rgba(233, 30, 140, 0.14);
+      border-color: #ff69b4;
+      box-shadow: 0 0 0 4px rgba(255,105,180,0.2);
     }
 
     /* ── Summary box ── */
     .summary {
-      background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+      background: rgba(255,100,180,0.12);
       border-radius: 18px;
       padding: 26px 22px;
       margin: 22px 0;
       font-size: 1.05rem;
-      color: #5d4037;
+      color: rgba(255,220,235,0.95);
       line-height: 2;
-      border: 2px solid #f48fb1;
+      border: 1.5px solid rgba(255,180,210,0.3);
     }
-    .summary strong { color: #ad1457; font-size: 1.1rem; }
+    .summary strong { color: #ffb3d1; font-size: 1.1rem; }
 
     /* ── Progress dots ── */
     .progress {
@@ -255,20 +276,17 @@
       margin-bottom: 30px;
     }
     .dot {
-      width: 11px;
-      height: 11px;
+      width: 11px; height: 11px;
       border-radius: 50%;
-      background: #f8bbd0;
+      background: rgba(255,180,210,0.3);
       transition: all 0.35s ease;
     }
     .dot.active {
-      background: #e91e8c;
+      background: #ff69b4;
       transform: scale(1.5);
-      box-shadow: 0 0 0 4px rgba(233, 30, 140, 0.2);
+      box-shadow: 0 0 0 4px rgba(255,105,180,0.25);
     }
-    .dot.done {
-      background: #ad1457;
-    }
+    .dot.done { background: #ffb3d1; }
 
     /* ── Confetti ── */
     .confetti-piece {
@@ -387,7 +405,7 @@
     .btn-back {
       background: none;
       border: none;
-      color: #c2185b;
+      color: rgba(255,180,210,0.7);
       font-size: 0.92rem;
       font-family: 'Lato', sans-serif;
       font-weight: 600;
@@ -397,11 +415,78 @@
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      opacity: 0.75;
-      transition: opacity 0.2s, transform 0.2s;
-      letter-spacing: 0.2px;
+      transition: opacity 0.2s, transform 0.2s, color 0.2s;
     }
-    .btn-back:hover { opacity: 1; transform: translateX(-3px); }
+    .btn-back:hover { color: #ffb3d1; transform: translateX(-3px); }
+
+    /* ── Typing animation ── */
+    .typing-text { display: inline; }
+    .typing-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background: #ffb3d1;
+      margin-left: 2px;
+      vertical-align: middle;
+      animation: blink 0.9s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* ── Countdown ── */
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin: 22px 0 10px;
+    }
+    .countdown-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .countdown-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      color: #ffb3d1;
+      font-weight: 700;
+      line-height: 1;
+      text-shadow: 0 0 20px rgba(255,100,180,0.5);
+    }
+    .countdown-label {
+      font-size: 0.7rem;
+      color: rgba(255,200,220,0.6);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 4px;
+    }
+    .countdown-sep {
+      font-size: 2rem;
+      color: rgba(255,180,210,0.4);
+      align-self: flex-start;
+      margin-top: 4px;
+    }
+
+    /* ── Message textarea ── */
+    .msg-textarea {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 18px;
+      border: 2px solid rgba(255,180,210,0.3);
+      font-size: 0.98rem;
+      font-family: 'Lato', sans-serif;
+      color: rgba(255,220,235,0.9);
+      background: rgba(255,255,255,0.07);
+      outline: none;
+      resize: none;
+      transition: border 0.2s, box-shadow 0.2s;
+      margin: 14px 0 6px;
+      min-height: 90px;
+    }
+    .msg-textarea::placeholder { color: rgba(255,180,210,0.4); }
+    .msg-textarea:focus {
+      border-color: #ff69b4;
+      box-shadow: 0 0 0 4px rgba(255,105,180,0.15);
+    }
 
     /* ── Mobile ── */
     @media (max-width: 500px) {
@@ -426,6 +511,9 @@
   <source src="wicked game - chris isaak ( sped up + reverb ).mp3" type="audio/mpeg" />
 </audio>
 
+<!-- Stars -->
+<div class="stars-bg" id="starsBg"></div>
+
 <!-- Floating hearts background -->
 <div class="hearts-bg" id="heartsBg"></div>
 
@@ -433,12 +521,12 @@
 <section class="page active" id="page1">
   <div class="card">
     <span class="emoji-big">🌸</span>
-    <h1>Привет, Викуль,<br><em>ты прекрасна</em> 💕</h1>
+    <h1><span id="typedTitle"></span><span class="typing-cursor" id="typingCursor"></span></h1>
     <p>Знаю, прошло немало времени.<br>Но я всё ещё думаю о тебе.</p>
     <p>Я делаю шаг навстречу.<br>Не прошу второго шанса,<br>ничего не жду взамен.</p>
     <p>Просто хочу, чтобы ты сделала<br>самый маленький шаг — в мою сторону 🥺</p>
     <div style="margin-top: 34px;">
-      <button class="btn btn-primary" onclick="goTo(2); startMusic()">
+      <button class="btn btn-primary" onclick="goTo(2); startMusic(); if(navigator.vibrate) navigator.vibrate(50);">
         💌 Да, мне интересно
       </button>
       <br>
@@ -521,10 +609,11 @@
     <h2>Отлично!</h2>
     <p>Посмотри, что получилось:</p>
     <div class="summary" id="summaryBox"></div>
-    <p style="font-size: 0.92rem; color: #ad1457; margin-top: 4px;">
+    <p style="font-size: 0.92rem; color: rgba(255,180,210,0.7); margin-top: 4px;">
       ✨ Жду этого момента с нетерпением
     </p>
-    <button class="btn btn-primary" style="margin-top: 18px;" onclick="onConfirm()">
+    <textarea class="msg-textarea" id="userMessage" placeholder="Напиши мне что-нибудь... (необязательно) 🌸" maxlength="300"></textarea>
+    <button class="btn btn-primary" style="margin-top: 10px;" onclick="onConfirm()">
       💖 Подтвердить встречу!
     </button>
   </div>
@@ -535,17 +624,64 @@
   <div class="card">
     <span class="emoji-big" style="animation: none; font-size: 6rem;">🎉</span>
     <h1>Ты лучшая!</h1>
-    <p style="font-size: 1.12rem; margin-top: 12px;">
-      Так рад, что ты согласилась 💕
-    </p>
+    <p style="font-size: 1.12rem; margin-top: 12px;">Так рад, что ты согласилась 💕</p>
     <p>Буду ждать нашей встречи.<br>Обещаю — всё будет здорово 🌸</p>
+
+    <div class="countdown" id="countdown">
+      <div class="countdown-unit"><span class="countdown-num" id="cdDays">–</span><span class="countdown-label">дней</span></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit"><span class="countdown-num" id="cdHours">–</span><span class="countdown-label">часов</span></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit"><span class="countdown-num" id="cdMins">–</span><span class="countdown-label">минут</span></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit"><span class="countdown-num" id="cdSecs">–</span><span class="countdown-label">секунд</span></div>
+    </div>
+    <p style="font-size:0.85rem; color:rgba(255,200,220,0.5); margin-top:-6px;">до встречи с тобой ✨</p>
+
     <div class="final-hearts">💖🌷💖</div>
   </div>
 </section>
 
 <script>
-  /* ══ State ══ */
-  const state = { place: null, date: null };
+  /* ══ Stars ══ */
+  const starsBg = document.getElementById('starsBg');
+  for (let i = 0; i < 120; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = 1 + Math.random() * 2.5;
+    s.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random()*100}vw; top:${Math.random()*100}vh;
+      animation-duration:${2+Math.random()*4}s;
+      animation-delay:${Math.random()*5}s;
+    `;
+    starsBg.appendChild(s);
+  }
+
+  /* ══ Typing animation ══ */
+  const titleLines = ['Привет, Викуль,', 'ты прекрасна 💕'];
+  let lineIdx = 0, charIdx = 0;
+  const titleEl = document.getElementById('typedTitle');
+
+  function typeTitle() {
+    if (lineIdx >= titleLines.length) {
+      document.getElementById('typingCursor').style.display = 'none';
+      return;
+    }
+    const line = titleLines[lineIdx];
+    if (charIdx <= line.length) {
+      const prev = lineIdx > 0 ? titleLines.slice(0, lineIdx).join('\n') + '\n' : '';
+      titleEl.innerHTML =
+        (lineIdx > 0 ? titleLines.slice(0,lineIdx).map((l,i) => i===0 ? l : '<br><em>'+l+'</em>').join('') + '<br>' : '') +
+        (lineIdx === 1 ? '<em>' + line.slice(0, charIdx) + '</em>' : line.slice(0, charIdx));
+      charIdx++;
+      setTimeout(typeTitle, charIdx === 1 ? 400 : 55);
+    } else {
+      lineIdx++; charIdx = 0;
+      setTimeout(typeTitle, 300);
+    }
+  }
+  setTimeout(typeTitle, 600);
 
   const placeLabels = {
     cafe:  '☕ Уютное кафе',
@@ -554,7 +690,8 @@
     home:  '🏡 Погуляем у тебя',
   };
 
-  /* ══ Floating hearts ══ */
+  /* ══ State ══ */
+  const state = { place: null, date: null };
   const heartsBg = document.getElementById('heartsBg');
   const floatSymbols = ['💕', '🌸', '✨', '💗', '🌷', '💞', '🫶', '🎀'];
 
@@ -609,6 +746,8 @@
     el.classList.add('selected');
     state.place = key;
     spawnSparkles(el);
+    miniConfetti(el);
+    if (navigator.vibrate) navigator.vibrate(40);
     const btn = document.getElementById('nextToDate');
     btn.style.display = 'inline-block';
     btn.style.animation = 'fadeIn 0.4s ease';
@@ -652,7 +791,27 @@
     }
   }
 
-  /* ══ Confetti ══ */
+  /* ══ Mini confetti on place select ══ */
+  function miniConfetti(el) {
+    const rect = el.getBoundingClientRect();
+    const colors = ['#ff69b4','#ffb3d1','#ce93d8','#fff176','#80deea'];
+    for (let i = 0; i < 18; i++) {
+      const p = document.createElement('div');
+      p.className = 'confetti-piece';
+      const size = 5 + Math.random() * 6;
+      p.style.cssText = `
+        width:${size}px; height:${size}px;
+        left:${rect.left + rect.width/2 + (Math.random()-0.5)*rect.width}px;
+        top:${rect.top + window.scrollY}px;
+        background:${colors[Math.floor(Math.random()*colors.length)]};
+        border-radius:${Math.random()>0.4?'50%':'3px'};
+        animation-duration:${0.8+Math.random()*1.2}s;
+        animation-delay:${Math.random()*0.3}s;
+      `;
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 2000);
+    }
+  }
   function launchConfetti() {
     const colors = ['#e91e8c', '#f48fb1', '#ce93d8', '#fff176', '#80deea', '#ffcc80', '#ef9a9a'];
     for (let i = 0; i < 110; i++) {
@@ -674,6 +833,7 @@
   /* ══ Confirm + send to Formspree ══ */
   async function onConfirm() {
     if (!state.place || !state.date) return;
+    if (navigator.vibrate) navigator.vibrate([40, 30, 40]);
 
     const btn = document.querySelector('#page4 .btn-primary');
     btn.disabled = true;
@@ -683,6 +843,7 @@
     const formatted = d.toLocaleDateString('ru-RU', {
       weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
     });
+    const userMsg = document.getElementById('userMessage').value.trim();
 
     try {
       const res = await fetch('https://formspree.io/f/xaqgvokr', {
@@ -692,7 +853,8 @@
           _replyto: 'alexbacardi7@gmail.com',
           place: placeLabels[state.place],
           date: formatted,
-          message: `Она согласилась! 🎉 Место: ${placeLabels[state.place]}, Дата: ${formatted}`
+          message: `Она согласилась! 🎉 Место: ${placeLabels[state.place]}, Дата: ${formatted}`,
+          her_message: userMsg || '(ничего не написала)'
         })
       });
       const json = await res.json();
@@ -702,7 +864,37 @@
     }
 
     launchConfetti();
+    startCountdown(state.date);
     goTo(5);
+  }
+
+  /* ══ Countdown ══ */
+  let countdownInterval = null;
+  function startCountdown(dateStr) {
+    if (countdownInterval) clearInterval(countdownInterval);
+    function tick() {
+      const target = new Date(dateStr + 'T12:00:00');
+      const now = new Date();
+      let diff = target - now;
+      if (diff <= 0) {
+        document.getElementById('cdDays').textContent  = '0';
+        document.getElementById('cdHours').textContent = '0';
+        document.getElementById('cdMins').textContent  = '0';
+        document.getElementById('cdSecs').textContent  = '0';
+        clearInterval(countdownInterval);
+        return;
+      }
+      const days  = Math.floor(diff / 86400000); diff -= days * 86400000;
+      const hours = Math.floor(diff / 3600000);  diff -= hours * 3600000;
+      const mins  = Math.floor(diff / 60000);    diff -= mins * 60000;
+      const secs  = Math.floor(diff / 1000);
+      document.getElementById('cdDays').textContent  = days;
+      document.getElementById('cdHours').textContent = String(hours).padStart(2,'0');
+      document.getElementById('cdMins').textContent  = String(mins).padStart(2,'0');
+      document.getElementById('cdSecs').textContent  = String(secs).padStart(2,'0');
+    }
+    tick();
+    countdownInterval = setInterval(tick, 1000);
   }
 
   /* ══ Music player ══ */
