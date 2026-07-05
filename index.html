@@ -583,17 +583,20 @@
     });
 
     try {
-      await fetch('https://formspree.io/f/mnjkwpbp', {
+      const res = await fetch('https://formspree.io/f/mnjkwpbp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
+          _replyto: 'alexbacardi7@gmail.com',
           place: placeLabels[state.place],
           date: formatted,
           message: `Она согласилась! 🎉 Место: ${placeLabels[state.place]}, Дата: ${formatted}`
         })
       });
+      const json = await res.json();
+      console.log('Formspree response:', res.status, json);
     } catch (e) {
-      // silent fail — всё равно показываем финал
+      console.error('Formspree error:', e);
     }
 
     launchConfetti();
