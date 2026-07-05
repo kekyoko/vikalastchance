@@ -569,8 +569,33 @@
     }
   }
 
-  /* ══ Confirm ══ */
-  function onConfirm() {
+  /* ══ Confirm + send to Formspree ══ */
+  async function onConfirm() {
+    if (!state.place || !state.date) return;
+
+    const btn = document.querySelector('#page4 .btn-primary');
+    btn.disabled = true;
+    btn.textContent = '⏳ Отправляем...';
+
+    const d = new Date(state.date + 'T12:00:00');
+    const formatted = d.toLocaleDateString('ru-RU', {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    });
+
+    try {
+      await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          place: placeLabels[state.place],
+          date: formatted,
+          message: `Она согласилась! 🎉 Место: ${placeLabels[state.place]}, Дата: ${formatted}`
+        })
+      });
+    } catch (e) {
+      // silent fail — всё равно показываем финал
+    }
+
     launchConfetti();
     goTo(5);
   }
